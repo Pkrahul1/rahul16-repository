@@ -22,6 +22,7 @@ print(type(arr1[0][0]),'type of each element')
 print(arr1.shape)
 arr=np.array(l2)
 arr1=arr.reshape()
+#pandas begins here
 
 
 
