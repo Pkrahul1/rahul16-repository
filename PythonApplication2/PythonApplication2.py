@@ -1,5 +1,15 @@
 from functools import reduce;
 import os;
+import operator
+
+import operator
+l1=[1,2,3,4]
+l2=[10,20,30,40]
+a,b,c,d=map(operator.mul,l1,l2)
+#print(a,b,c,d) #unboxed to a b c d
+a,b=range(2)
+#print(a,b)
+
 def gen1(n):
     i=10;
    
@@ -8,7 +18,9 @@ def gen1(n):
     return 1;
     yield 10;
     return 1;
-b=iter(gen1(10));
+
+#b=iter(gen1(10));#gen fn is always iterator ,no need to convert excplicitly using iter 
+#b=gen1(10) 
 #print(next(b))
 #print(next(b))
 #print(next(b)) # this will give error
@@ -23,11 +35,16 @@ is encountered it will come out of the generator right there and will give stopI
 error incase further next function is encountered'''
 def gen2(n):
     j=1;
+    k=0
     for i in range(n):
         print("below yield is for: {} yield".format(j))
         j+=1
         yield i**2;
-
+        k=10
+#g1=gen2(10)
+#print(g1)#g1 is iterator
+#print(next(g1))
+#print(next(g1))
 #print((gen2(5))) #<generator object gen2 at 0x0000020EA56C6990>
 #print(list(gen2(5)))#will give list of all yield but all print is also executed
 ##print(dict(gen2(5)))#will give error
@@ -43,7 +60,7 @@ def gen(n):
         yield i**3;
 
 def advanceFunGenerator():
-    
+    #print(next(range(10))) # this  will give error
     print(range(10),type(range(10)),sep=":");
     print(list(range(1,8,2)))
     print(list(iter(range(1,8,2))))
@@ -65,13 +82,18 @@ def advanceFunGenerator():
         print(i,end=" ");
     print('\n3.....................');
     for i in range(10):
-        print(next(gen(12)),end=" ")#will always give first element in bcz gen(12) is nt iterator 
+        print(next(gen(12)),end=" ")#will always give first element bcz calling different fn everytime , iter cn b usd as gen(12) is iterator 
     print("\n4.....................")
     v= iter(gen(12));
+    u=gen(10)#it is also iterator
     print(v)#its an object <generator object gen at 0x00000176A9BB69E8>
-    for i in range(12):
-        print(next(v), end =" ");
+    for i in range(10):      
+        print(next(u), end=" ")
     print('\n')
+    for i in range(12):       
+        print(next(v), end=" ")
+    print('\n')
+    
 #advanceFunGenerator();
 def square(x):
     print("rahul")
@@ -121,6 +143,7 @@ def advanceReduceandFilter():
 def redu():
     l1=[0,1,2,3,4,5,6,7,8,9,10]
     print(reduce(red,l1))
+    print("....................")
     l2=[];
     b=reduce(red,l2,100)
     print(b)
