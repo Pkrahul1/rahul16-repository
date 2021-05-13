@@ -48,6 +48,25 @@ def fun():
     print("list comprehension");
     print([ i for i in l1])
     print(( i for i in l1),type(( i for i in l1)))#it return generator object not set of elements bcz there is no tuplw comprehension
+    result=[[j for j in range(3)] for i in range(5)]#right to left
+    print("1.list nested:",result)
+    result=[i for j in range(5) for i in range(4)]#left to right[0,1,2,3,0,1.....]
+    print("2.list nested:",result)
+    result=[i for j in range(5) if j<3 for i in range(5) if i>=3]
+    print("3.list nested:",result)
+    X = [[1,7,3],
+        [3,5,8],
+        [6,8,9]]
+    Y = [[1,1,1],
+        [6,7,0],
+        [4,9,1]]
+    print("Addition using Zip")
+    result=[list(map(sum,zip(*i))) for i in zip(X,Y)]
+    print("1.Addition using map",result)
+    result=[[sum(j) for j in zip(*i)] for i in zip(X,Y)]
+    print("2. addition using nested list comp",result)
+    result=[[X[i][j]+Y[i][j] for j in range(len(X[0]))] for i in range(len(X))]#right to left
+    print("2. Addition using only list comp.",result)
     listUsingComprehension=[i for i in l1]
     print("list using list comprehension:",listUsingComprehension)
     for i in d1:
@@ -79,9 +98,13 @@ def patternFun():
 #patternFun()
 def collectionList():
     list1=[];
+    #list1[0]=10#error
     list1=[1,"rah",3,8,True,False,10.0];
-    print(len(list1))
+    print(len(list1),"length of list1")
     list2=[None]*5;
+    Z=[[0,1]]*4
+    for i in Z:
+        print(i,"id:",id(i))#all id same.
     print(list1);
     print(list2)
     list1.append(1)
@@ -98,12 +121,13 @@ def collectionList():
     l1.insert(3,"rah") #if position is greater than list length it will insert at last
     print(l1[2]);
     print(l1.clear()) #returns none
-    print(l1); #clear the list
+    print(l1,"after clearing everything"); #clear the list
     l3=l1.copy()#return a list
     l1=[3,4]
     print(l1.count("rahul")) #return occurance of value
     l1.extend([1,2])#append as new element to list
     l1.extend({"name":"rahul","age":23})
+    print("all element can be extended: ",l1)# all element can be extended:  [3, 4, 1, 2, 'name', 'age']
     print(l1[4])
     l1=[1,1,1,3,3,3,5,5,1,8,1]
     print(l1)
@@ -118,14 +142,21 @@ def collectionList():
     print(l1.reverse()) #return none
     print(l1)
     l1.sort()#returns none
+    l2=["singhh","kumarKumar","rahul"]
+    l3=["singhh","kumarKumar","rahul"]
+    l2.sort(key=lambda x:len(x))
+    l3.sort(key=lambda x:len(x),reverse=True)
+    print(l2)
+    print(l3)
     l1.pop(1)#remmove at index 1 and return
     list2=[1,2,3,4,5,6,7,8,9]
     print(".........slicing...........")
     print(list2[::]) #will print whole list
-    print(list2[::-1]) #will reverse list
+    print(list2[::-1]) #will reverse list   
     print(list2[-1:-9:]) #will return empty list as start to end is backward but step is positive
     print(list2[-3:1:-1])
-    print(list2[-3:1:-1]); #will return empty list as direction of step is opposite
+    print(list2[-3:1:-1]) #will return empty list as direction of step is opposite
+    print("list2 in reverse order from 3rd index",list2[3::-1])#[4,3,2,1]
 #collectionList()
 def collectionString1():
     s1="rahulKumar"
@@ -145,7 +176,7 @@ def collectionString1():
     if type(l1)==list:
         print(l1)
     print("casefold.......................")
-    print(s1.casefold())#return string sutaible for caseless comparison
+    print(s1.casefold(),"this is caseless string")#return string sutaible for caseless comparison
     print(s1.center(50,"#"))# 2nd agg is optional
     print("..........count................")
     s2="rahulrahulrahulrahul"
@@ -168,13 +199,16 @@ def collectionTuple():
     tup1=1,2,3,4,5,1; # or tup1=(1,2,3,4,5,1)
     tup1=2,1,3,4,5,1 
     print("tuple is :",tup1)
-    print("reversed tuple:",tup1[::-1])
-    
+    print("reversed tuple:",tup1[::-1])   
     tup2=(10,)
     print("tup2 before concatanation:",tup2)
     tup2+=tup1
     print("tup2 after concatanation:",tup2)
     print("looping in tuple")
+    t1=(1,)
+    print(t1,type(t1))
+    t2=(1)
+    print(t2,type(t2))#integer
     for i in tup1:
         print(i,end=" ")
     print("\n",tup1.count(1));
@@ -191,20 +225,28 @@ def collectionDict():
         2.0:[23,24,25],    #key should be unique if duplicate key present it takes last one
         1.0:["Rah"]}                  #key can be string ,int float any immutable data type
     print(dict1)
-    
     print(dict1.values())
-    print(type(dict1.values()))
+    print(type(dict1.values())) 
     print(dict1.items());
     print(list(dict1.items()));
     print(type(dict1.items()))
     print(dict1.keys());
     print(type(dict1.keys()))
+    d1={(1,2):"rahul"
+    }
+    d1[(1,3)]="singh"
+    print(d1)#tuple as key
+    print(d1.get((1,2)))
     print(".........print using loop.....")
     for key,value in dict1.items():
         print(key,type(key),value,type(value))
     print(".....KEYS..............")
     for key in dict1.keys():
         print(key)
+    print("....looping.....")
+    for key in dict1:
+        print(key)
+    print("........................")
     print("fromKeys",dict.fromkeys([1,2],0))
     print(dict1.get(1.0))
     print(dict1.pop('3.0',"key not found"))#if key is not there 2nd agr is returned if not given none returned
@@ -225,12 +267,12 @@ def collectionDict():
     print(s1.difference_update(s2))
     print(s1)
     print(s1.symmetric_difference(s2))#return set of all element which are exactly in one of the set
-#collectionDict()
+collectionDict()
 def stringFun1(data):
     countOfWordsDict={};
     word="";
     max=0
-    frequency=0;
+    frequency=0; 
     listOfWords=data.split(" ")
     for i in listOfWords:
         countOfWordsDict.update({i:listOfWords.count(i)});
@@ -243,7 +285,7 @@ def stringFun1(data):
             if len(key)>len(word):
                 word=key;
     print(word,frequency);
-#stringFun1 () 
+#stringFun1 ()  
 def stringFun2(data):
     dataInList=data.split(" ");
     listOfEncodedWords=[];
@@ -293,7 +335,7 @@ def stringFun3(sentence):
             if element in ('a','i','e','o','u'):
                 l1.remove(element);
                 addstr+=element;
-        
+         
         encodedList.append("".join(l1)+addstr);
     return " ".join(encodedList)
 #print(stringFun3("WelCome"))
@@ -312,6 +354,8 @@ def funTypeCasting():
     print("converting str1 l1 tup1 dict1 in set:",set(str1),set(l1),set(tup1),set(dict1))
     #print("converting str1 s1 tup1 l1 in dict:",dict(str1),dict(s1),dict(tup1),dict(l1))
     #cant change list tuple set into dictionary;
+    li=[(1,2),(3,4)]
+    print(dict(li))#this is possible{1:2,3:4}
     #list(dict1),tuple(dict1),set(dict1) will convert key into list tuple and set but str(dict1)
     #will create a string containing whole dictionary "{"a":"rahul"}
     print("converting s1 l1 tup1 dict1 in string:",str(s1),str(l1),str(tup1),str(dict1))
@@ -323,7 +367,7 @@ def funTypeCasting():
     mList=['rahul','kumar']
     mstring=str(mList)
     print(mstring)
-
+     
     for i in range(0,5):
         print("rahul");
         i=4
@@ -354,7 +398,7 @@ def sg(eachNumer):
     sumOfDigits=sum(fact(eachNumer));   
     i=1;
     while sum(fact(i))!=eachNumer:
-        i+=1;        
+        i+=1;         
                     
     return sum(i);
 
