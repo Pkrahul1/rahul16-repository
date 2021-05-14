@@ -4,6 +4,29 @@ if(var1 == [5]):
 else:
     print("kumar")
 
+from collections import Counter
+from collections import defaultdict
+from collections import OrderedDict
+dict1=Counter([1,2,1,2,1,2,3,4,5,4,3,3])
+print(dict1)
+print(list(dict1.elements()))
+dict1.update([1,1,2,3,3])
+print(dict1)
+dict2=defaultdict(lambda:"not present")#argument can be any lambda, built in or user defined functions
+dict2[1]="first element"
+dict2[2]="second element"
+for i in range(1,4):
+    print(dict2[i])#will use fn in orderdict if key is not present in dict2 and we try to access it
+dict3=OrderedDict();
+dict3[1]="1st in ordereddict"
+dict3[2]="2nd in ordered dict"
+print(dict3)
+dict3[1]="1st is changed but order retained"
+print(dict3)
+dict3.pop(1)
+print(dict3)
+dict3[1]="1st after removed and added again, order changed"
+print(dict3)
 """
 
 import array
